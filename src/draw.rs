@@ -6,6 +6,7 @@
 //!
 //! See GUIDE.md -> Phase 1 and Phase 9.
 
+use piston_window::Key::B;
 use piston_window::types::Color;
 use piston_window::{Context, G2d, rectangle};
 
@@ -16,14 +17,17 @@ const BLOCK_SIZE: f64 = 25.0;
 ///
 /// Example: with a `BLOCK_SIZE` of 25.0, cell `4` starts at pixel `100.0`.
 pub fn to_coord(game_coord: i32) -> f64 {
-    todo!("Phase 1: convert a grid coordinate to pixels")
+    // todo!("Phase 1: convert a grid coordinate to pixels")
+    return game_coord as f64 * BLOCK_SIZE
+
 }
 
 /// Same as [`to_coord`], but returns a `u32`.
 ///
 /// The window size has to be given in whole pixels, which is why this exists.
 pub fn to_coord_u32(game_coord: i32) -> u32 {
-    todo!("Phase 1: reuse to_coord and convert the result")
+    // todo!("Phase 1: reuse to_coord and convert the result")
+    return game_coord as u32 * BLOCK_SIZE as u32
 }
 
 /// Draws a single square cell of `color` at grid position `(x, y)`.
