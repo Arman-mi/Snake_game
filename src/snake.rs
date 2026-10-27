@@ -27,7 +27,7 @@ impl Direction {
     /// Returns the direction pointing the other way (`Up` <-> `Down`,
     /// `Left` <-> `Right`).
     pub fn opposite(&self) -> Direction {
-        match self {
+        match *self {
             Direction::Down => Direction::Up,
             Direction::Up => Direction::Down,
             Direction::Left => Direction::Right,
@@ -60,7 +60,21 @@ impl Snake {
     /// The *tail end* is at `(x, y)` and the *head* is two cells to the right
     /// of it. Remember that `body` is ordered head first.
     pub fn new(x: i32, y: i32) -> Snake {
-        todo!("Phase 3")
+        // todo!("Phase 3")
+        let mut body = LinkedList::new();
+        body.push_front(Block {
+            x: x,
+            y: y,
+        });
+        body.push_front(
+            Block { x:x+1, y }
+        ); 
+        body.push_front(Block { x:x+2, y });
+
+        Snake { direction:Direction::Right , body, tail:None }
+        
+        
+    
     }
 
     /// Draws every block of the snake in `SNAKE_COLOR`.
@@ -72,12 +86,14 @@ impl Snake {
 
     /// Returns the `(x, y)` grid position of the head.
     pub fn head_position(&self) -> (i32, i32) {
-        todo!("Phase 3")
+        
+        let curr_block = self.body.front().unwrap();
+        return (curr_block.x, curr_block.y)
     }
 
     /// Returns the direction the snake is currently travelling.
     pub fn head_direction(&self) -> Direction {
-        todo!("Phase 3")
+        self.direction
     }
 
     /// Moves the snake one cell forward.
