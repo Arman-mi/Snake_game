@@ -4,6 +4,7 @@
 
 use std::collections::LinkedList;
 
+use piston_window::HatState::Up;
 use piston_window::types::Color;
 use piston_window::{Context, G2d};
 
@@ -105,7 +106,11 @@ impl Snake {
     /// block. The removed block must be remembered in `self.tail` so that
     /// [`Snake::restore_tail`] can give it back later.
     pub fn move_forward(&mut self, dir: Option<Direction>) {
-        todo!("Phase 4")
+        todo!("phase 4")
+        // match dir{
+        //     some(d) =>
+        //     None =>
+        // }
     }
 
     /// Returns where the head *would* be after one move in `dir` (or in the
@@ -113,7 +118,21 @@ impl Snake {
     ///
     /// This only looks ahead: it must not change the snake.
     pub fn next_head(&self, dir: Option<Direction>) -> (i32, i32) {
-        todo!("Phase 4")
+        let (head_x,head_y):(i32,i32) = self.head_position();
+
+        let mut current_direction = self.direction;
+        
+        match dir{
+            Some(d) => current_direction = d,
+            None =>{}
+        }
+        match current_direction{
+            Direction::Up => (head_x, head_y-1),
+            Direction::Down =>(head_x,head_y+1),
+            Direction::Left =>(head_x-1, head_y),
+            Direction::Right =>(head_x+1,head_y),
+        }
+        
     }
 
     /// Grows the snake by putting the most recently removed tail block back
