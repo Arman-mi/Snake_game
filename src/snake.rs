@@ -163,7 +163,20 @@ impl Snake {
     ///
     /// GUIDE.md explains why the last block is skipped.
     pub fn overlap_tail(&self, x: i32, y: i32) -> bool {
-        todo!("Phase 5")
+        let n = self.body.len();
+        let mut turn = 0;
+        for block in &self.body{
+            if turn == n-1{
+                return false
+            }
+            if (block.x,block.y) ==(x,y){
+                return true
+            }
+            
+
+            turn +=1
+        }
+        return false
     }
 
     /// Test helper (already done for you): the number of blocks in the body.
