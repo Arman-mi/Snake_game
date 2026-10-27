@@ -42,7 +42,27 @@ impl Game {
     /// * food exists at `(6, 4)`
     /// * the game is not over and `waiting_time` is `0.0`
     pub fn new(width: i32, height: i32) -> Game {
-        todo!("Phase 6")
+        let snake:Snake = Snake::new(2,2);
+        let food_exists = true;
+        let (food_x,food_y) = (6,4);
+        let game_over = false; 
+        let waiting_time = 0.0;
+
+        return Game{
+            snake,
+            food_exists,
+            food_x,
+            food_y,
+            width,
+            height,
+            game_over,
+            waiting_time,
+
+        }
+        
+
+
+
     }
 
     /// Reacts to a key press.
@@ -109,7 +129,10 @@ impl Game {
     /// Puts everything back to the starting state described in
     /// [`Game::new`]. The board size stays the same.
     fn restart(&mut self) {
-        todo!("Phase 6")
+
+        let (current_width, current_height ) = (self.width, self.height);
+        *self = Game::new(current_width, current_height);
+
     }
 }
 
