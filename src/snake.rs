@@ -151,7 +151,11 @@ impl Snake {
     /// Grows the snake by putting the most recently removed tail block back
     /// on the end of the body. Called right after the snake eats.
     pub fn restore_tail(&mut self) {
-        todo!("Phase 5")
+
+
+        let tail_block = Option::clone(&self.tail);
+        
+        self.body.push_back(tail_block.unwrap());
     }
 
     /// Returns `true` if `(x, y)` is covered by any block of the snake
