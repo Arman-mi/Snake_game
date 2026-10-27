@@ -27,7 +27,12 @@ impl Direction {
     /// Returns the direction pointing the other way (`Up` <-> `Down`,
     /// `Left` <-> `Right`).
     pub fn opposite(&self) -> Direction {
-        todo!("Phase 2")
+        match self {
+            Direction::Down => Direction::Up,
+            Direction::Up => Direction::Down,
+            Direction::Left => Direction::Right,
+            Direction::Right => Direction::Left,
+        }
     }
 }
 
