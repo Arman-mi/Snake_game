@@ -43,6 +43,14 @@ struct Block {
     x: i32,
     y: i32,
 }
+impl Block {
+    pub fn new(x:i32,y:i32)->Block{
+        return Block {
+            x,
+            y,
+        }
+    }
+}
 
 pub struct Snake {
     /// The direction the snake is currently travelling.
@@ -106,11 +114,16 @@ impl Snake {
     /// block. The removed block must be remembered in `self.tail` so that
     /// [`Snake::restore_tail`] can give it back later.
     pub fn move_forward(&mut self, dir: Option<Direction>) {
-        todo!("phase 4")
-        // match dir{
-        //     some(d) =>
-        //     None =>
-        // }
+
+        match dir{
+            Some(d) =>self.direction = d,
+            None => {}
+        }
+        let (curr_x,curr_y) = self.next_head(dir);
+        let new_block:Block = Block::new(curr_x,curr_y);
+        self.tail = self.body.pop_back();
+        self.body.push_front(new_block);
+
     }
 
     /// Returns where the head *would* be after one move in `dir` (or in the
