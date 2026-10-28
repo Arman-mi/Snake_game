@@ -108,7 +108,19 @@ impl Game {
     /// The move is deadly if the next head position hits the snake's own
     /// body or lands on (or past) any of the four border walls.
     fn check_if_snake_alive(&self, dir: Option<Direction>) -> bool {
-        todo!("Phase 7")
+        //phase 7
+        let snake = &self.snake;
+       
+        let (head_x,head_y) = snake.next_head(dir);
+
+        let (width,height) = (self.width,self.height);
+        if !(0< head_x && head_x < width-1 && 0<head_y && head_y < height-1){
+            return false
+        }
+        let body_collision = snake.overlap_tail(head_x, head_y);
+        return !body_collision
+
+
     }
 
     /// Puts food on a random cell that is inside the walls and not on the
