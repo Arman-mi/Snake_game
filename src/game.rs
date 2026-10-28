@@ -76,7 +76,27 @@ impl Game {
     ///   snake cannot reverse into itself).
     /// * Otherwise the snake is updated immediately in the chosen direction.
     pub fn key_pressed(&mut self, key: Key) {
-        todo!("Phase 8")
+        // phase 8
+
+        if self.game_over ==true{
+            return
+        }
+        let dir = match key{
+            Key::Up | Key::W => Some(Direction::Up),
+            Key::Down | Key::S => Some(Direction::Down),
+            Key::Left | Key::A => Some(Direction::Left),
+            Key::Right | Key::D => Some(Direction::Right),
+            _=> Some(self.snake.head_direction())
+
+        };
+        
+        if self.snake.head_direction().opposite() == dir.unwrap() {
+            return
+        }
+        self.update_snake(dir);
+
+
+
     }
 
     /// Draws the snake, the food (if any), the four border walls and, when
@@ -96,7 +116,23 @@ impl Game {
     /// * If `waiting_time` is greater than `MOVING_PERIOD`, move the snake
     ///   one step in its current direction.
     pub fn update(&mut self, delta_time: f64) {
-        todo!("Phase 8")
+        self.waiting_time += delta_time;
+
+
+        if self.game_over{
+            if self.waiting_time > RESTART_TIME{
+            self.restart();
+            
+            }
+            return 
+        }
+        if !self.food_exists{
+            self.add_food();
+        }
+        if self.waiting_time > MOVING_PERIOD{
+            self.update_snake(Option::Some(self.snake.head_direction()));
+        }
+
     }
 
     /// If the head is on the food: the food is eaten (it no longer exists)
@@ -163,7 +199,15 @@ impl Game {
     /// * Otherwise: the game is over (and the snake does not move).
     /// * Either way, `waiting_time` goes back to `0.0`.
     fn update_snake(&mut self, dir: Option<Direction>) {
-        todo!("Phase 8")
+        
+        if self.check_if_snake_alive(dir){
+            self.snake.move_forward(dir);
+            self.check_eating();
+        }else {
+            self.game_over = true;
+
+        }
+        self.waiting_time = 0.0;
     }
 
     /// Puts everything back to the starting state described in
