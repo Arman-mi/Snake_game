@@ -2,6 +2,8 @@
 //!
 //! See GUIDE.md -> Phases 6 to 9.
 
+use std::arch::x86_64::_mm_getmant_round_sd;
+
 use piston_window::types::Color;
 use piston_window::{Context, G2d, Key};
 use rand::{Rng, thread_rng};
@@ -100,8 +102,19 @@ impl Game {
     /// If the head is on the food: the food is eaten (it no longer exists)
     /// and the snake grows by one block.
     fn check_eating(&mut self) {
-        todo!("Phase 7")
+        //phase 7
+        // let  snake = &mut self.snake;
+        if self.snake.head_position() == (self.food_x,self.food_y){
+            self.food_exists = false;
+            self.snake.restore_tail();
+        }
+
     }
+
+
+
+
+
 
     /// Returns `true` if the snake can safely make its next move in `dir`.
     ///
@@ -126,7 +139,22 @@ impl Game {
     /// Puts food on a random cell that is inside the walls and not on the
     /// snake, and marks the food as existing.
     fn add_food(&mut self) {
-        todo!("Phase 7")
+
+        let mut  random_x = thread_rng().gen_range(1..self.width-1);
+        let mut random_y = thread_rng().gen_range(1..self.height-1);
+        while self.snake.overlap_tail(random_x,random_y){
+        random_x = thread_rng().gen_range(1..self.width-1);
+         random_y = thread_rng().gen_range(1..self.height-1);
+        }
+        (self.food_x,self.food_y) = (random_x,random_y);
+        self.food_exists = true; 
+
+        
+
+        
+
+
+
     }
 
     /// Takes one step of the game in `dir`.
