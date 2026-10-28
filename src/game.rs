@@ -104,7 +104,28 @@ impl Game {
     ///
     /// Not unit tested -- you will check this one by running the game.
     pub fn draw(&self, con: &Context, g: &mut G2d) {
-        todo!("Phase 9")
+        // todo!("Phase 9")
+        self.snake.draw(con, g);
+        if self.food_exists{
+            draw_block(FOOD_COLOR, self.food_x, self.food_y, con, g);
+        }
+
+        //top wall
+        draw_rectangle(BORDER_COLOR, 0, 0, self.width, 1, con, g);
+
+        //left side wall
+        draw_rectangle(BORDER_COLOR, 0, 0, 1, self.height, con, g);
+       
+        //bottom wall
+        draw_rectangle(BORDER_COLOR, 0, self.height, self.width-1, 1, con, g);
+        
+        //right side wall
+        draw_rectangle(BORDER_COLOR, self.width, 0, 1, self.height-1, con, g);
+
+        if self.game_over{
+            draw_rectangle(GAMEOVER_COLOR, 0, 0, self.width, self.height, con, g);
+        }
+
     }
 
     /// Advances the game clock by `delta_time` seconds.

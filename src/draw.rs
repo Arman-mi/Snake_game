@@ -7,7 +7,7 @@
 //! See GUIDE.md -> Phase 1 and Phase 9.
 
 use piston_window::Key::B;
-use piston_window::types::Color;
+use piston_window::types::{Color, Width};
 use piston_window::{Context, G2d, rectangle};
 
 /// How many pixels wide (and tall) one grid cell is.
@@ -34,7 +34,11 @@ pub fn to_coord_u32(game_coord: i32) -> u32 {
 ///
 /// Not unit tested -- you will check this one by running the game.
 pub fn draw_block(color: Color, x: i32, y: i32, con: &Context, g: &mut G2d) {
-    todo!("Phase 9: draw one block with piston_window::rectangle")
+    // todo!("Phase 9: draw one block with piston_window::rectangle")
+    let gui_x = to_coord(x);
+    let gui_y = to_coord(y);
+    rectangle(color, [gui_x,gui_y,BLOCK_SIZE,BLOCK_SIZE], con.transform, g);
+
 }
 
 /// Draws a rectangle of `color` whose top-left corner is grid cell `(x, y)`
@@ -50,7 +54,13 @@ pub fn draw_rectangle(
     con: &Context,
     g: &mut G2d,
 ) {
-    todo!("Phase 9: draw a rectangle that spans several blocks")
+    // todo!("Phase 9: draw a rectangle that spans several blocks")
+
+
+    let gui_x = to_coord(x);
+    let gui_y = to_coord(y);
+    rectangle(color, [gui_x,gui_y,BLOCK_SIZE *(width as f64),BLOCK_SIZE * (height as f64)], con.transform, g);
+
 }
 
 // The tests live in src/tests/draw_tests.rs. Do not edit them.

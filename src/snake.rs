@@ -90,7 +90,9 @@ impl Snake {
     ///
     /// Not unit tested -- you will check this one by running the game.
     pub fn draw(&self, con: &Context, g: &mut G2d) {
-        todo!("Phase 9")
+        for block in &self.body{
+            draw_block(SNAKE_COLOR, block.x, block.y, con, g);
+        }
     }
 
     /// Returns the `(x, y)` grid position of the head.
